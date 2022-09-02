@@ -42,6 +42,37 @@ function getLengthCriteria() {
 
 function generatePassword() {
   var length = getLengthCriteria();
+
+  var includeLowerChars = window.confirm("Include lowercase characters?"); // lowercase characters?
+  var includeUpperChars = window.confirm("Include uppercase characters?"); // uppercase characters?
+  var includeNumericChars = window.confirm("Include numeric characters?"); // numeric characters?
+  var includeSpecialChars = window.confirm("Include special characters?"); // special characters?
+
+  var charSet = [];
+
+  // load included characters into the character set
+  if(includeLowerChars) {
+    charSet.push(...lowerChars);
+  }
+  if(includeUpperChars) {
+    charSet.push(...upperChars);
+  }
+  if(includeNumericChars) {
+    charSet.push(...numericChars);
+  }
+  if(includeSpecialChars) {
+    charSet.push(...specialChars);
+  }
+
+  var password = '';
+
+  // iterate for length of requested password, appending a random character from the charset each time
+  for(var i = 0; i < length; i++) {
+    password += charSet[Math.floor(Math.random() * charSet.length)];
+  }
+
+  // return password
+  return password;
 }
 
 // Write password to the #password input
